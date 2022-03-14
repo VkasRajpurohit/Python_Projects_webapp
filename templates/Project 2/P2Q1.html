@@ -1,0 +1,15 @@
+<title>PythonProjects/project_2 Q1</title>
+{% extends 'back.html' %}
+{% block body %}<br>
+
+<h2>Convert kilometers to miles : </h2>
+  <form action="Project_2_Q1" method="post">
+    <label for="kilometers">Enter Kilometers: </label>
+    <input type="text" name="kilometers" id="kilometers" value="" required>
+    <input type="submit" value="Convert">
+  </form>
+  <br>
+
+
+<h5> {{result}} </h5>
+{% endblock body %}

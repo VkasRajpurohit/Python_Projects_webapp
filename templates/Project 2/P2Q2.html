@@ -1,0 +1,15 @@
+<title>PythonProjects/project_2 Q2</title>
+{% extends 'back.html' %}
+{% block body %}<br>
+
+<h2>Convert Celsius to Fahrenheit : </h2>
+  <form action="Project_2_Q2" method="post">
+    <label for="temp_celsius">Enter Temperature in Celsius: </label>
+    <input type="text" name="temp_celsius" id="temp_celsius" value="" required>
+    <input type="submit" value="Convert">
+  </form>
+  <br>
+
+
+<h5> {{result}} </h5>
+{% endblock body %}

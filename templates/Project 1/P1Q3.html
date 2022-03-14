@@ -1,0 +1,20 @@
+<title>PythonProjects/Q3</title>
+
+{% extends 'back.html' %}
+{% block body %}<br>
+
+<h2>Find area of triangle</h2>
+  <form action="/Project_1_Q3" method="POST">
+      <label for="base">Enter base</label>
+      <input type="text" name="base" id="base" value="" required>
+      <label for="height">Enter height</label>
+      <input type="text" name="height" id="height" value="" required>
+      <input type="submit" value="Find Area">
+  </form>
+  <br>
+
+<h3> {{area}} </h3>
+
+{% endblock body %}
+
+
