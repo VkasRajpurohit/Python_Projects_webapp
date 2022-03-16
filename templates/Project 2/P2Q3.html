@@ -1,0 +1,16 @@
+<title>PythonProjects/project_2 Q3</title>
+{% extends 'back.html' %}
+{% block body %}<br>
+
+<h2> Display Calendar : </h2><br>
+<h5>Please enter year in the formate: yyyy </h5>
+  <form action="Project_2_Q3" method="post">
+    <label for="year">Enter Year: </label>
+    <input type="text" name="year" id="year" value="" required>
+    <input type="submit" value="Display Calendar">
+  </form>
+  <br>
+
+
+<h5> {{result}} </h5>
+{% endblock body %}

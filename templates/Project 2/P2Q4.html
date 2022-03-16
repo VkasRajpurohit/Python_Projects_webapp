@@ -1,0 +1,17 @@
+<title>PythonProjects/project_2 Q4</title>
+{% extends 'back.html' %}
+{% block body %}<br>
+
+<h2> Solve Quadratic Equation : </h2><br>
+<h5>Enter coefficients value: </h5>
+  <form action="Project_2_Q4" method="post">
+    <label for="a"> a: </label><input type="text" name="a" id="a" value="" required>
+    <label for="b"> b: </label><input type="text" name="b" id="b" value="" required>
+    <label for="c"> c: </label><input type="text" name="c" id="c" value="" required>
+    <input type="submit" value="Solve">
+  </form>
+  <br>
+
+<h5> {{equation}} </h5>
+<h5> {{result}} </h5>
+{% endblock body %}

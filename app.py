@@ -1,5 +1,6 @@
 # Required libraries
-import random
+import random, calendar, cmath
+
 import logging as lg
 import numpy as np
 
@@ -146,7 +147,7 @@ def generate_random_number():
     return render_template('Project 1/P1Q5.html')
 
 
-@app.route('/Project_2')  # To render about page
+@app.route('/Project_2')  # To render Project_2 page
 @cross_origin()
 def project_2():
     """Project_2 Submission page information"""
@@ -187,6 +188,62 @@ def Project_2_Q2():
         return render_template('Project 2/P2Q2.html', result=" {} °Celsius = {} °Fahrenheit."
                                .format(temp_celsius, np.round(temp_fahrenheit, 2)))
     return render_template('Project 2/P2Q2.html')
+
+
+@app.route('/Project_2_Q3', methods=['GET', 'POST'])  # To render Project_2_Q3 page
+@cross_origin()
+def Project_2_Q3():
+    """Project_2_Q3 page: Display Calendar."""
+    # importing calendar module: import calendar
+    if request.method == 'POST':
+        yyyy = int(request.form['year'])
+        lg.info('Project_2_Q3- working fine- year= {}'.format(yyyy))
+        try:
+            display_calendar = calendar.calendar(yyyy, w=3, l=2, c=3, m=4)
+            # w controls the width;
+            # l controls the length between each string;
+            # c and m specify the number of rows and columns, respectively.
+            lg.info('Project_2_Q3 result- display_calendar- working fine')
+        except Exception as e:
+            lg.warning('Project_2_Q3 result- unable to complete request: {}'.format(e))
+        return render_template('Project 2/P2Q3.html', result=display_calendar)
+    return render_template('Project 2/P2Q3.html')
+
+
+@app.route('/Project_2_Q4', methods=['GET', 'POST'])  # To render Project_2_Q4 page
+@cross_origin()
+def Project_2_Q4():
+    """Project_2_Q4 page: Solve Quadratic Equation."""
+    # importing module: import cmath
+    if request.method == 'POST':
+        # Enter coefficients
+        a = int(request.form['a'])
+        b = int(request.form['b'])
+        c = int(request.form['c'])
+        lg.info('Project_2_Q4- working fine- coefficients: {}, {}, {}'.format(a, b, c))
+        try:
+            # solutions of this quadratic equation: (-b ± (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)
+            d = (b ** 2) - (4 * a * c)   # calculate the discriminant
+
+            # find two solutions
+            sol1 = (-b - cmath.sqrt(d)) / (2 * a)
+            sol2 = (-b + cmath.sqrt(d)) / (2 * a)
+
+            solve = 'Solution: {} & {}'.format(np.round(sol1, 3), np.round(sol2, 3))
+            lg.info('Project_2_Q4 result- working fine: {}'.format(solve))
+        except Exception as e:
+            lg.warning('Project_2_Q4 result- unable to complete request: {}'.format(e))
+        return render_template('Project 2/P2Q4.html', equation= "Quadratic Equation: {}x² + {}x + {} = 0"
+                               .format(a, b, c), result=solve)
+    return render_template('Project 2/P2Q4.html')
+
+
+@app.route('/Project_2_Q5', methods=['GET', 'POST'])  # To render Project_2_Q4 page
+@cross_origin()
+def Project_2_Q5():
+    """Project_2_Q5 page: Swap two variables without temp variable."""
+    # Already done in Project_1_Q4
+    return render_template('Project 1/P1Q4.html')
 
 
 if __name__ == '__main__':  # on running python app.py
