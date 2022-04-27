@@ -12,7 +12,7 @@ class Q2:
 
     def math_operation(self):
         """Method Name: math_operation
-           Description: It will return the area of a triangle"""
+           Description: It will return result of the math_operation"""
         try:
             if self.operation == 'add':
                 result = self.value1 + self.value2
