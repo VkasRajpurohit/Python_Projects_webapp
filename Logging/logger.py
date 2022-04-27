@@ -1,7 +1,7 @@
 import logging as lg
 
 # Create and configure logger
-lg.basicConfig(filename="PythonProjects_webapp/logfile.log",
+lg.basicConfig(filename="PythonProjects_webapp/Logs/logfile.log",
                filemode='w',
                level=lg.INFO,
                format='%(asctime)s %(levelname)s: %(message)s',
