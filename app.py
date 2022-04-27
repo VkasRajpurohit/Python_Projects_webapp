@@ -1,22 +1,17 @@
 # Required libraries
-import random, calendar, cmath
+import calendar, cmath
 
 import logging as lg
 import numpy as np
+
+from Project_1.Modules import Q2, Q3, Q4, Q5
+from Logging import logger
 
 from flask import Flask, render_template, request
 from flask_cors import cross_origin
 
 app = Flask(__name__)  # app as object created
-
-# Create and configure logger
-lg.basicConfig(filename="logfile.log",
-               filemode='w',
-               level=lg.INFO,
-               format='%(asctime)s %(levelname)s: %(message)s',
-               datefmt='%Y-%m-%d %H:%M:%S')
-
-lg.info('app start- working fine')
+logger.lg.info('app start- working fine')   # from Logging import logger
 
 
 @app.route('/', methods=['GET', 'POST'])  # To render Home_Page
@@ -77,15 +72,10 @@ def math_operation():
         value1 = float(request.form['val1'])
         value2 = float(request.form['val2'])
         lg.info('Project_1_Q2- working fine- value1={} & value2={}'.format(value1, value2))
-        try:
-            if operation == 'add':
-                result = value1 + value2
-                lg.info('Project_1_Q2 result- working fine- addition={}'.format(result))
-            if operation == 'div':
-                result = value1 / value2
-                lg.info('Project_1_Q2 result- working fine- division={}'.format(result))
-        except Exception as e:
-            lg.warning('Project_1_Q2- unable to complete request: {}'.format(e))
+
+        # from Project_1.Modules import Q2
+        result = Q2(operation, value1, value2).math_operation()
+
         return render_template('Project 1/P1Q2.html', result="Operation Result: {}".format(result))
     return render_template('Project 1/P1Q2.html')
 
@@ -99,11 +89,10 @@ def triangle_area():
         base = float(request.form['base'])
         height = float(request.form['height'])
         lg.info('Project_1_Q3- working fine- base={} & height={}'.format(base, height))
-        try:
-            area = (base * height) / 2
-            lg.info('Project_1_Q3_result- working fine- area={}'.format(area))
-        except Exception as e:
-            lg.warning('Project_1_Q3_result- unable to complete request: {}'.format(e))
+
+        # from Project_1.Modules import Q3
+        area = Q3(base, height).find_area()
+
         return render_template('Project 1/P1Q3.html', area="Area of the Triangle: {}".format(area))
     return render_template('Project 1/P1Q3.html')
 
@@ -118,13 +107,8 @@ def swap():
         var2 = int(request.form['val2'])
         input_var = 'Given variables: ' + str(var1) + ' & ' + str(var2)
         lg.info('Project_1_Q4- working fine- {}'.format(input_var))
-        try:
-            var1, var2 = var2, var1  # swapped
-            swapped = 'After swap: ' + str(var1) + ' & ' + str(var2)
-            lg.info('Project_1_Q4 result- working fine- {}'.format(swapped))
-        except Exception as e:
-            lg.warning('Project_1_Q4 result- unable to complete request: {}'.format(e))
-        return render_template('Project 1/P1Q4.html', input_var= input_var, swapped=swapped)
+        swapped = Q4(var1, var2).swap()  # from Project_1.Modules import Q3
+        return render_template('Project 1/P1Q4.html', input_var=input_var, swapped=swapped)
     return render_template('Project 1/P1Q4.html')
 
 
@@ -138,12 +122,9 @@ def generate_random_number():
         val2 = int(request.form['val2'])
         given_range = 'Range: (' + str(val1) + ', ' + str(val2) + ')'
         lg.info('Project_1_Q5- working fine- {}'.format(given_range))
-        try:
-            random_num = random.randint(val1, val2)
-            lg.info('Project_1_Q5 result- working fine- random number: {}'.format(random_num))
-        except Exception as e:
-            lg.warning('Project_1_Q5 result- unable to complete request: {}'.format(e))
-        return render_template('Project 1/P1Q5.html', given_range=given_range, result="Random number: {}".format(random_num))
+        random_num = Q5(val1, val2).generate_random_number()  # from Project_1.Modules import Q5
+        return render_template('Project 1/P1Q5.html',
+                               given_range=given_range, result="Random number: {}".format(random_num))
     return render_template('Project 1/P1Q5.html')
 
 
@@ -168,7 +149,8 @@ def Project_2_Q1():
             lg.info('project_2_Q1_result- working fine- miles= {}'.format(miles))
         except Exception as e:
             lg.warning('project_2_Q1_result- unable to complete request: {}'.format(e))
-        return render_template('Project 2/P2Q1.html', result=" {} Kilometers = {} Miles.".format(km, np.round(miles, 2)))
+        return render_template('Project 2/P2Q1.html',
+                               result=" {} Kilometers = {} Miles.".format(km, np.round(miles, 2)))
     return render_template('Project 2/P2Q1.html')
 
 
@@ -223,7 +205,7 @@ def Project_2_Q4():
         lg.info('Project_2_Q4- working fine- coefficients: {}, {}, {}'.format(a, b, c))
         try:
             # solutions of this quadratic equation: (-b ± (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)
-            d = (b ** 2) - (4 * a * c)   # calculate the discriminant
+            d = (b ** 2) - (4 * a * c)  # calculate the discriminant
 
             # find two solutions
             sol1 = (-b - cmath.sqrt(d)) / (2 * a)
@@ -233,7 +215,7 @@ def Project_2_Q4():
             lg.info('Project_2_Q4 result- working fine: {}'.format(solve))
         except Exception as e:
             lg.warning('Project_2_Q4 result- unable to complete request: {}'.format(e))
-        return render_template('Project 2/P2Q4.html', equation= "Quadratic Equation: {}x² + {}x + {} = 0"
+        return render_template('Project 2/P2Q4.html', equation="Quadratic Equation: {}x² + {}x + {} = 0"
                                .format(a, b, c), result=solve)
     return render_template('Project 2/P2Q4.html')
 
@@ -247,4 +229,4 @@ def Project_2_Q5():
 
 
 if __name__ == '__main__':  # on running python app.py
-    app.run(debug=True)     # run the flask app
+    app.run(debug=True)  # run the flask app
